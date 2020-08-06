@@ -6,20 +6,20 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends apt-utils 2>&1
 
 # Verify git and process tools are installed
-RUN apg-get -y install git procps
+RUN apt-get -y install git procps
 
 # Remove outdated yarn from /opt and install via package
 # so it can be easily updated via apt-get upgrade yarn
-RUN rm -rf /opt/yarn-* && \
-    rm -f /usr/local/bin/yarn && \
-    rm -f /usr/local/bin/yarnpkg && \
-    apt-get install -y curl apt-transport-https lsb-release && \
-    curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null && \
-    echo "deb https://dl.yarnplg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get -y install --no-install-recommends yarn
+# RUN rm -rf /opt/yarn-* && \
+#     rm -f /usr/local/bin/yarn && \
+#     rm -f /usr/local/bin/yarnpkg && \
+#     apt-get -y install curl apt-transport-https lsb-release && \
+#     curl -sS "https://dl.yarnpkg.com/debian/pubkey.gpg" | apt-key add - 2>/dev/null && \
+#     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+#     apt-get update && \
+#     apt-get -y install --no-install-recommends yarn
 
-RUN yarn global add gscan
+# RUN yarn global add gscan
 
 # Clean up
 RUN apt-get autoremove -y && \
@@ -29,4 +29,3 @@ RUN apt-get autoremove -y && \
 ENV DEBIAN_FRONTEND=dialog
 ENV SHELL /bin/bash
 ENV url http://localhost:3001
-
