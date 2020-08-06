@@ -1,0 +1,8 @@
+{
+  "dockerFile": "Dockerfile",
+  "extensions": [],
+  "appPort": [
+    "3001:2368"
+  ],
+  "postCreateCommand": "yarn install --production=false"
+}
